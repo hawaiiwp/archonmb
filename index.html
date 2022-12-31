@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+	<meta name="generator" content="Hugo 0.91.2" />
+
+  <title>
+      
+      archonblue == Arlen Nagata, GICH
+      
+  </title>
+
+</head>
+
+
+  <body>
+
+    
+
+	
+<div class="h-feed">
+
+	
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://archonblue.com/2022/12/31/tshark.html">tshark</a></h1>
+		
+
+		<a href="https://archonblue.com/2022/12/31/tshark.html" class="u-url"><time class="dt-published" datetime="2022-12-31 13:09:48 -1000">Dec 31, 2022</time></a>
+
+		<div class="e-content">
+			 <h2 id="what-is-tshark">What is tshark?</h2>
+<p>tshark is the command line version of Wireshark. It&rsquo;s faster than Wireshark in processing packets, but not as performant as tcpdump.</p>
+<h2 id="notes-and-quirks-about-tshark">Notes and Quirks about tshark</h2>
+<ul>
+<li>tshark like wireshark will do some processing of packet data. For example, if you look at ICMP error messages, the first 64 bytes of the original packet are included in the packet, so tshark can find that data where tcpdump would not find it with a similar filter.
+<ul>
+<li>tcpdump-n -r icmp-error.pcap&rsquo;net 10' | wc-l</li>
+<li>tshark-n -r icmp-error.pcap-Y &lsquo;ip.addr== 10.0.0.0/8&rsquo; | wc-l</li>
+</ul>
+</li>
+<li>tshark -c # will look through the # of packets specified. It will NOT give you the first # results based on your query/filter. This is different than tcpdump -c # which will give you # results of the query/filter. z</li>
+</ul>
+<h2 id="tshark-options">tshark Options</h2>
+<ul>
+<li>-q (quiet display, reduce extra display info)</li>
+<li>-r (read a pcap file)</li>
+<li>-n (no DNS resolution)</li>
+<li>-Y &lsquo;wireshark-filter&rsquo; (add a wireshark filter)</li>
+<li>-w (write a pcap file)</li>
+<li>-T fields -e <code>&lt;fields&gt;</code>  (-T determines the type of output. -e which fields to display)
+<ul>
+<li>tcp.strem</li>
+<li>eth.src</li>
+<li>eth.dst</li>
+<li>tcp.dstport</li>
+<li>tcp.srcport</li>
+<li>ip.src</li>
+<li>ip.dst</li>
+<li>dns.id</li>
+<li>dns.qry.name</li>
+<li>dns.a</li>
+</ul>
+</li>
+<li>-z <code>&lt;statistics&gt;</code>
+<ul>
+<li>http</li>
+<li>tree</li>
+<li>http_req</li>
+<li>follow,tcp,ascii, <code>&lt;#&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="sample-commands">Sample Commands</h2>
+<h3 id="using-tshark-with-icmp">Using tshark with ICMP</h3>
+<h3 id="using-tshark-to-get-http-information">Using tshark to get HTTP information</h3>
+<p><code>tshark -r wireshark3.pcap -n -q -z http,tree </code>tshark -r wireshark3.pcap -n -q -z http_req,tree</p>
+<h3 id="using-tshark-to-find-and-follow-a-stream">Using tshark to find and follow a stream</h3>
+<p><code>tshark -n -r wireshark3.pcap -Y 'tcp.srcport == 1492 and tcp.dstport == 80' -T fields -e tcp.stream | uniq </code>tshark -n -r wireshark3.pcap -q -z follow,tcp,ascii,78 | more</p>
+<h3 id="using-tshark-with-dns">Using tshark with DNS</h3>
+<p>`tshark -n -r ./dns.pcap -Y &lsquo;ip.addr == 192.168.11.162 and ip.addr == 192.168.11.101 and udp.port == 53&rsquo; -T fields -e eth.src -e eth.dst -e ip.src -e ip.dst -e dns.id -e dns.qry.name -e dns.a</p>
+<h2 id="bonus">Bonus</h2>
+<p>When you get a base64 encoded payload, you can create a file and use this to decode it.
+`base64 &ndash;decode -i attachment.txt &gt; /tmp/attachment.bin</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://archonblue.com/2022/12/19/wireshark.html">Wireshark</a></h1>
+		
+
+		<a href="https://archonblue.com/2022/12/19/wireshark.html" class="u-url"><time class="dt-published" datetime="2022-12-19 11:30:40 -1000">Dec 19, 2022</time></a>
+
+		<div class="e-content">
+			 <p>Start analysis with Statistics. Capture File properties for a summary of traffic. Protocol Hierarchy for traffic by layers and stats. Conversations provides insight into IPs and Ports. Large file transfers. And small mapping activity can be found here.</p>
+<p>Analyze TCP Session can show an entire conversation.</p>
+<p>Find a Packet by String and Packet Bytes. Then Follow the Stream for the whole conversation.</p>
+<p>Use Profiles to customize your view of Wireshark. If you do common tasks and focus on certain items, create views and switch between them to speed analysis.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://archonblue.com/2022/12/19/use-tcpdump-to.html" class="u-url"><time class="dt-published" datetime="2022-12-19 11:09:00 -1000">Dec 19, 2022</time></a>
+
+		<div class="e-content">
+			 <p>Use tcpdump to find and isolate packets/sessions/events of interest. Use Wireshark to inspect details.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://archonblue.com/2022/12/18/this-is-the.html" class="u-url"><time class="dt-published" datetime="2022-12-18 17:31:21 -1000">Dec 18, 2022</time></a>
+
+		<div class="e-content">
+			 <p>This is the start of something new…</p>
+
+		</div>
+	  </div>
+	
+
+</div>
+
+
+    
+    
+
+  </body>
+
+</html>
