@@ -1,0 +1,44 @@
+{
+	"version": "https://jsonfeed.org/version/1",
+	"title": "archonblue == Arlen Nagata, GICH",
+	"icon": "https://micro.blog/archonblue/avatar.jpg",
+	"home_page_url": "https://archonblue.com/",
+	"feed_url": "https://archonblue.com/feed.json",
+	"items": [
+		
+			{
+				"id": "http://archonblue.micro.blog/2022/12/31/tshark.html",
+				"title": "tshark",
+				"content_html": "<h2 id=\"what-is-tshark\">What is tshark?</h2>\n<p>tshark is the command line version of Wireshark. It&rsquo;s faster than Wireshark in processing packets, but not as performant as tcpdump.</p>\n<h2 id=\"notes-and-quirks-about-tshark\">Notes and Quirks about tshark</h2>\n<ul>\n<li>tshark like wireshark will do some processing of packet data. For example, if you look at ICMP error messages, the first 64 bytes of the original packet are included in the packet, so tshark can find that data where tcpdump would not find it with a similar filter.\n<ul>\n<li>tcpdump-n -r icmp-error.pcap&rsquo;net 10' | wc-l</li>\n<li>tshark-n -r icmp-error.pcap-Y &lsquo;ip.addr== 10.0.0.0/8&rsquo; | wc-l</li>\n</ul>\n</li>\n<li>tshark -c # will look through the # of packets specified. It will NOT give you the first # results based on your query/filter. This is different than tcpdump -c # which will give you # results of the query/filter. z</li>\n</ul>\n<h2 id=\"tshark-options\">tshark Options</h2>\n<ul>\n<li>-q (quiet display, reduce extra display info)</li>\n<li>-r (read a pcap file)</li>\n<li>-n (no DNS resolution)</li>\n<li>-Y &lsquo;wireshark-filter&rsquo; (add a wireshark filter)</li>\n<li>-w (write a pcap file)</li>\n<li>-T fields -e <code>&lt;fields&gt;</code>  (-T determines the type of output. -e which fields to display)\n<ul>\n<li>tcp.strem</li>\n<li>eth.src</li>\n<li>eth.dst</li>\n<li>tcp.dstport</li>\n<li>tcp.srcport</li>\n<li>ip.src</li>\n<li>ip.dst</li>\n<li>dns.id</li>\n<li>dns.qry.name</li>\n<li>dns.a</li>\n</ul>\n</li>\n<li>-z <code>&lt;statistics&gt;</code>\n<ul>\n<li>http</li>\n<li>tree</li>\n<li>http_req</li>\n<li>follow,tcp,ascii, <code>&lt;#&gt;</code></li>\n</ul>\n</li>\n</ul>\n<h2 id=\"sample-commands\">Sample Commands</h2>\n<h3 id=\"using-tshark-with-icmp\">Using tshark with ICMP</h3>\n<h3 id=\"using-tshark-to-get-http-information\">Using tshark to get HTTP information</h3>\n<p><code>tshark -r wireshark3.pcap -n -q -z http,tree\r </code>tshark -r wireshark3.pcap -n -q -z http_req,tree</p>\n<h3 id=\"using-tshark-to-find-and-follow-a-stream\">Using tshark to find and follow a stream</h3>\n<p><code>tshark -n -r wireshark3.pcap -Y 'tcp.srcport == 1492 and tcp.dstport == 80' -T fields -e tcp.stream | uniq\r </code>tshark -n -r wireshark3.pcap -q -z follow,tcp,ascii,78 | more</p>\n<h3 id=\"using-tshark-with-dns\">Using tshark with DNS</h3>\n<p>`tshark -n -r ./dns.pcap -Y &lsquo;ip.addr == 192.168.11.162 and ip.addr == 192.168.11.101 and udp.port == 53&rsquo; -T fields -e eth.src -e eth.dst -e ip.src -e ip.dst -e dns.id -e dns.qry.name -e dns.a</p>\n<h2 id=\"bonus\">Bonus</h2>\n<p>When you get a base64 encoded payload, you can create a file and use this to decode it.\n`base64 &ndash;decode -i attachment.txt &gt; /tmp/attachment.bin</p>\n",
+				"content_text": "## What is tshark?\r\ntshark is the command line version of Wireshark. It's faster than Wireshark in processing packets, but not as performant as tcpdump. \r\n\r\n## Notes and Quirks about tshark\r\n- tshark like wireshark will do some processing of packet data. For example, if you look at ICMP error messages, the first 64 bytes of the original packet are included in the packet, so tshark can find that data where tcpdump would not find it with a similar filter. \r\n\t- tcpdump-n -r icmp-error.pcap'net 10' | wc-l\r\n\t- tshark-n -r icmp-error.pcap-Y 'ip.addr== 10.0.0.0/8' | wc-l\r\n- tshark -c # will look through the # of packets specified. It will NOT give you the first # results based on your query/filter. This is different than tcpdump -c # which will give you # results of the query/filter. z\r\n\r\n## tshark Options\r\n- -q (quiet display, reduce extra display info)\r\n- -r (read a pcap file)\r\n- -n (no DNS resolution)\r\n- -Y 'wireshark-filter' (add a wireshark filter)\r\n- -w (write a pcap file)\r\n- -T fields -e `<fields>`  (-T determines the type of output. -e which fields to display)\r\n\t- tcp.strem\r\n\t- eth.src\r\n\t- eth.dst\r\n\t- tcp.dstport\r\n\t- tcp.srcport\r\n\t- ip.src\r\n\t- ip.dst\r\n\t- dns.id\r\n\t- dns.qry.name\r\n\t- dns.a\r\n- -z `<statistics>` \r\n\t- http\r\n\t- tree\r\n\t- http_req\r\n\t- follow,tcp,ascii, `<#>`\r\n\r\n## Sample Commands\r\n\r\n### Using tshark with ICMP\r\n\r\n### Using tshark to get HTTP information\r\n`tshark -r wireshark3.pcap -n -q -z http,tree\r\n`tshark -r wireshark3.pcap -n -q -z http_req,tree\r\n\r\n### Using tshark to find and follow a stream\r\n`tshark -n -r wireshark3.pcap -Y 'tcp.srcport == 1492 and tcp.dstport == 80' -T fields -e tcp.stream | uniq\r\n`tshark -n -r wireshark3.pcap -q -z follow,tcp,ascii,78 | more\r\n\r\n### Using tshark with DNS\r\n`tshark -n -r ./dns.pcap -Y 'ip.addr == 192.168.11.162 and ip.addr == 192.168.11.101 and udp.port == 53' -T fields -e eth.src -e eth.dst -e ip.src -e ip.dst -e dns.id -e dns.qry.name -e dns.a\r\n\r\n## Bonus\r\nWhen you get a base64 encoded payload, you can create a file and use this to decode it.\r\n`base64 --decode -i attachment.txt > /tmp/attachment.bin\n",
+				"date_published": "2022-12-31T13:09:48-10:00",
+				"url": "https://archonblue.com/2022/12/31/tshark.html",
+				"tags": ["NetworkAnalysis","Cybersecurity","IncidentResponse"]
+			},
+			{
+				"id": "http://archonblue.micro.blog/2022/12/19/wireshark.html",
+				"title": "Wireshark",
+				"content_html": "<p>Start analysis with Statistics. Capture File properties for a summary of traffic. Protocol Hierarchy for traffic by layers and stats. Conversations provides insight into IPs and Ports. Large file transfers. And small mapping activity can be found here.</p>\n<p>Analyze TCP Session can show an entire conversation.</p>\n<p>Find a Packet by String and Packet Bytes. Then Follow the Stream for the whole conversation.</p>\n<p>Use Profiles to customize your view of Wireshark. If you do common tasks and focus on certain items, create views and switch between them to speed analysis.</p>\n",
+				"content_text": "Start analysis with Statistics. Capture File properties for a summary of traffic. Protocol Hierarchy for traffic by layers and stats. Conversations provides insight into IPs and Ports. Large file transfers. And small mapping activity can be found here. \n\nAnalyze TCP Session can show an entire conversation. \n\nFind a Packet by String and Packet Bytes. Then Follow the Stream for the whole conversation. \n\nUse Profiles to customize your view of Wireshark. If you do common tasks and focus on certain items, create views and switch between them to speed analysis. \n\n\n",
+				"date_published": "2022-12-19T11:30:40-10:00",
+				"url": "https://archonblue.com/2022/12/19/wireshark.html"
+			},
+			{
+				"id": "http://archonblue.micro.blog/2022/12/19/use-tcpdump-to.html",
+				
+				"content_html": "<p>Use tcpdump to find and isolate packets/sessions/events of interest. Use Wireshark to inspect details.</p>\n",
+				"content_text": "Use tcpdump to find and isolate packets/sessions/events of interest. Use Wireshark to inspect details. \n",
+				"date_published": "2022-12-19T11:09:00-10:00",
+				"url": "https://archonblue.com/2022/12/19/use-tcpdump-to.html",
+				"tags": ["NetworkAnalysis"]
+			},
+			{
+				"id": "http://archonblue.micro.blog/2022/12/18/this-is-the.html",
+				
+				"content_html": "<p>This is the start of something new…</p>\n",
+				"content_text": "This is the start of something new…\n",
+				"date_published": "2022-12-18T17:31:21-10:00",
+				"url": "https://archonblue.com/2022/12/18/this-is-the.html"
+			}
+	]
+}
