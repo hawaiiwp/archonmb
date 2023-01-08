@@ -24,6 +24,203 @@
 	
 	  <div class="h-entry">
 		
+
+		<a href="https://archonblue.com/2023/01/08/thanks-to-sans.html" class="u-url"><time class="dt-published" datetime="2023-01-08 07:09:00 -1000">Jan 8, 2023</time></a>
+
+		<div class="e-content">
+			 <p>Thanks to SANS, i am now certified!</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://archonblue.com/2023/01/01/zeek.html">Zeek</a></h1>
+		
+
+		<a href="https://archonblue.com/2023/01/01/zeek.html" class="u-url"><time class="dt-published" datetime="2023-01-01 13:51:34 -1000">Jan 1, 2023</time></a>
+
+		<div class="e-content">
+			 <h2 id="what-is-zeek">What is Zeek    </h2>
+<p>Open Source Software By Vern Paxson to create &ldquo;Rich logs&rdquo; with information about network traffic.
+This is a data-driven sensor to collect data, aggregate the data onto a log collector and gain insight into your network traffic.
+Scalable to create many workers to collect data and processors. Can also be deployed on low cost off the shelf hardware.
+Cluster configuration supports high bandwidth networks easily
+Zeek likes to think of itself as an intelligence framework to analyze network traffic.</p>
+<h2 id="get-data-from-a-sensor">Get data from a sensor</h2>
+<p>The focus of this article is not data collection, but analyst use to use data from packet captures that have been collected. 
+`analyze -s &ldquo;<em><strong>&rdquo; -e &ldquo;</strong></em>&rdquo; sensor | zeek -r - </p>
+<h2 id="zeek-logs">Zeek Logs</h2>
+<p>Zeek writes a variety of logs based on what it detects.</p>
+<ul>
+<li>conn.log Initial IP/Protocol Connections</li>
+<li>pe.log Portable Executable files found</li>
+<li>known_hosts.log New hosts seen in the past hour</li>
+<li>known_services.log New services seen in the past hour</li>
+<li>dpd.log Dynamic protocol detection</li>
+<li>weird.log Anomalous Activity</li>
+<li>loaded_script.log Scripts loaded upon start/restart</li>
+<li>reporter.log Severety of issues with Zeek</li>
+<li>sotfwarel.log Version numbers of vulnerable application layer software</li>
+<li>Protocols (http, dns, ssl, smtp, etc.)</li>
+</ul>
+<h2 id="viewing-logs">Viewing Logs</h2>
+<p>In order to view the log files created, you will generally use <code>cat</code> to display the log and then pipe that to <code>zeek-cut</code> to select the values you want displayed.</p>
+<h3 id="example-command">Example Command</h3>
+<p><code>cat conn.log | zeek-cut -u ts uid id.orig_h id.orig_p id.resp_h id.resp_p orig_bytes resp_bytes</code></p>
+<ul>
+<li><code>cat conn.log</code> Start by using cat to display the contents of the log. Any log file you see will represent some aspect of traffic on your network.</li>
+<li><code>zeek-cut</code>   Piped to zeek-cut, we can begin to select the fields we want. Each log file has different fields, so having a reference from zeek.org or another source is helpful.</li>
+<li><code>-u</code> option to print the time as a UTC timestamp.</li>
+<li><code>ts</code> displays the time stamp.</li>
+<li><code>uid</code> displays the uniquely generated ID for this connection. This ID will be the same across logs during this capture/time period.</li>
+<li><code>id.orig_h</code> displays the source IP address (originating host IP)</li>
+<li><code>id.orig_p</code> displays the source port (originating port)</li>
+<li><code>id.resp_h</code> displays the destination IP address (responding host IP)</li>
+<li><code>id.resp_p</code> displays the destination port (responding port)</li>
+<li><code>orig_bytes</code> displays bytes sent from the originating host</li>
+<li><code>resp_bytes</code> displays bytes sent from the responding host</li>
+</ul>
+<h2 id="zeek-cut-options">zeek-cut Options</h2>
+<ul>
+<li><code>-c</code> Include the first format header block in the output.</li>
+<li><code>-C</code> Include all format header blocks in the output.</li>
+<li><code>-m</code> Include the first format header blocks in the output in minimal view.</li>
+<li><code>-M</code> Include all format header blocks in the output in minimal view.</li>
+<li><code>-d</code> Convert time values into human-readable format.</li>
+<li><code>-D &lt;fmt&gt;</code> Like -d, but specify format for time (see strftime(3) for syntax).</li>
+<li>mrarlen@gmail_com</li>
+<li><code>-F &lt;ofs&gt; </code>Sets a different output field separator character.</li>
+<li><code>-h</code> Show help.</li>
+<li><code>-n</code> Print all fields <em>except</em> those specified.</li>
+<li><code>-u</code> Like -d, but print timestamps in UTC instead of local time.</li>
+<li><code>-U &lt;fmt&gt;</code> Like -D, but print timestamps in UTC instead of local time.</li>
+</ul>
+<h2 id="sample-fields-available-from-various-logs">Sample Fields Available from various logs</h2>
+<h3 id="connlog">conn.log</h3>
+<p><code>#fields ts  uid id.orig_h   id.orig_p   id.resp_h   id.resp_p   version cipher  curve   server_name resumed  last_alert  next_protocol   established ssl_history cert_chain_fps  client_cert_chain_fps   sni_matches_cert</code></p>
+<h3 id="fileslog">files.log</h3>
+<p><code>#fields ts  fuid tx_hosts    rx_hosts    conn_uids   source  depth   analyzers   mime_type   filename duration    local_orig  is_orig seen_bytes  total_bytes missing_bytes   overflow_bytes  timedout parent_fuid  md5 sha1 sha256  extracted   extracted_cutoff    extracted_size</code></p>
+<h3 id="ssllog">SSL.log</h3>
+<p><code>#fields ts  uid id.orig_h   id.orig_p   id.resp_h   id.resp_p   version cipher  curve   server_name resumed  last_alert  next_protocol   established ssl_history cert_chain_fps  client_cert_chain_fps   sni_matches_cert</code></p>
+<h2 id="sample-queries">Sample Queries</h2>
+<p>How many packets were sent and received by connection with source port 36499
+<code>cat conn.log | zeek-cut orig_pkts resp_pkts id.orig_p | grep 36499</code></p>
+<p>What is the server that was connected to in the SSL log?
+<code>cat ssl.log | zeek-cut id.org_h id.orig_p id.resp_h id.resp_p server_name</code></p>
+<p>Identify the file that was transferred from a host of interest.
+<code>cat files.log | zeek-cut fuid tx_hosts rx_hosts conn_uids</code></p>
+<p>What is the UID of a Portable Executable file that was downloaded?
+`cat pe.log | zeek-cut -d ts id</p>
+<p>What is the web traffic like from a host?
+<code>cat http.log | zeek-cut -d ts id.orig_h id.orig_p id.resp_h id.resp_p method host uri | grep &lt;IP-Address&gt;</code></p>
+<p>Describe the traffic from a host of interest
+<code>cat http.log | zeek-cut id.orig_h id.resp_h method user_agent | grep &lt;IP-Address&gt;</code></p>
+<p>What IP addresses and sites did a host of interest connect to?
+<code>cat dns.log | zeek-cut -d ts id.orig_h id.resp_h id.resp_p proto query answers| grep &lt;IP-Address&gt;</code></p>
+<p>Describe the email exchanges at the time of the incident.
+<code>cat smtp.log | zeek-cut -d ts uid id.orig_h id.orig_p id.resp_h id.resp_p helo mailfrom rcptto subject</code></p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://archonblue.com/2023/01/01/what-is-silk.html">SiLK for Network Flow Monitoring</a></h1>
+		
+
+		<a href="https://archonblue.com/2023/01/01/what-is-silk.html" class="u-url"><time class="dt-published" datetime="2023-01-01 13:00:51 -1000">Jan 1, 2023</time></a>
+
+		<div class="e-content">
+			 <h2 id="what-is-silk">What is SiLK?</h2>
+<ul>
+<li>System for Internet Level Knowledge, SiLK is an Open Source software project from Carnegie Mellon.</li>
+<li>Single point to send all NetFlow data</li>
+<li>Can convert large packet data in order to analyze the data.</li>
+<li>Network behavioral analysis once data is converted to numeric.</li>
+<li>Perfect for networks that cannot collect packets.</li>
+</ul>
+<h2 id="commands-to-work-with-a-silk-repository">Commands to Work with a SiLK Repository</h2>
+<p>**Note, commands are usually chained together.</p>
+<h3 id="rwfilter">rwfilter</h3>
+<p>Allows you to pull data out of the repository and filter it.</p>
+<h3 id="rwcut">rwcut</h3>
+<p>Allows you to select fields from your filter and display it to or write to a file.</p>
+<h3 id="rwstats">rwstats</h3>
+<p>generate basic statistics on data</p>
+<h3 id="rwcount">rwcount</h3>
+<p>aggregate flows into bins</p>
+<h3 id="rwuniq">rwuniq</h3>
+<p>Use any set of fields as a filter to the flows</p>
+<h2 id="a-sample-command">A Sample Command</h2>
+<p>`rwfilter &ndash;type=all &ndash;start-date &lsquo;<a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>&rsquo; &ndash;end-date &lsquo;<a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>&rsquo; &ndash;proto=0-255 &ndash;pass=stdout | rwcut &ndash;fields &lt;0-Xorfieldname&gt; &ndash;count=10</p>
+<ul>
+<li><code>--type=all</code> (determines the sensor/file as the source of data)</li>
+<li><code>--start-date</code> (Start date and time)</li>
+<li><code>--end-date</code> (End date and time)</li>
+<li><code>--proto=0-255</code> (Criteria to filter the data by. In this case Protocol. Designating 0-255 is one way to get data from all flows.)</li>
+<li><code>--pass=stdout</code> (Options are Pass or Fail. Pass sends the data you filtered to output for the next command to be run. Fail selects the data other than the filter you selected. Example: &ndash;proto=53 &ndash;fail=stdout would give you all flows that were NOT dns flows.)</li>
+<li><code>|</code> (pipe the output to the next tool.)</li>
+<li><code>rwcut</code> (This is a great tool to cut the data and show certain fields. Examples below.)</li>
+<li><code>--fields</code> (Select the fields to display. Could be a range like &ndash;fields=0-10 or seperate items &ndash;fields=sip,sport,dip,dport.)</li>
+<li><code>--count</code> (The number of items to display.)</li>
+<li>Looking for initial SYN and a following ACK. <code>--flags-initial=S/SA --flags-session=A/A</code></li>
+</ul>
+<h2 id="real-examples-you-may-use">Real Examples you may use</h2>
+<h3 id="find-flows-related-to-tcp-port-443">Find flows related to TCP port 443:</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date &lsquo;<a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>&rsquo; &ndash;end-date &lsquo;<a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>&rsquo; &ndash;proto=6 &ndash;dport=443 &ndash;pass=stdout | rwcut &ndash;fields sip,sport, dip,dport,bytes &ndash;no-columns</p>
+<h3 id="find-flows-that-are-not-udp-53">Find flows that are not UDP 53</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date__ &ndash;end-date ___ &ndash;proto=17 &ndash;aport=0-52,54-255 &ndash;pass=stdout | rwcut &ndash;fields sip,sport, dip,dport,bytes &ndash;no-columns</p>
+<h3 id="pass-is-our-network-fail-is-things-leaving-the-network">Pass is our network. Fail is things leaving the network.</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date &lsquo;<a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>&rsquo; &ndash;end-date &lsquo;<a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>&rsquo; scidr=10.10.0.0/16 &ndash;proto=6 &ndash;pass=stdout | rwfilter &ndash;dcidr=10.10.0.0/16 &ndash;fail=stdout &ndash;input-pipe=stdin | rwcut &ndash;fields sip,sport, dip,dport,bytes &ndash;no-columns</p>
+<h3 id="all-flows-for-a-given-time">All flows for a given time</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>5 &ndash;proto=0-255 &ndash;print-stat</p>
+<h3 id="tcp-flows">TCP Flows</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>5 &ndash;proto=6 &ndash;print-stat</p>
+<h3 id="all-hosts-connecting-to-port-60000">All Hosts connecting to port 60000</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date 2018/10/31 &ndash;proto=6 &ndash;flags-initial=S/SA &ndash;dport 60000 &ndash;pass=stdout | rwstats &ndash;count 200 &ndash;fields sip</p>
+<h3 id="find-all-flows-where-syn-is-present-with-or-without-ecn">Find all flows where SYN is present with or without ECN</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date=<a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date=<a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;proto=6 &ndash;flags-all=S/SFRPAU &ndash;pass=stdout | rwcut &ndash;fields sip,sport,dip,dport,packets,flags | head -21</p>
+<h3 id="find-all-the-records-for-two-hosts">Find all the records for two hosts.</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date=<a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date=<a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;any-address=172.28.30.5 &ndash;pass=stdout | rwfilter &ndash;input-pipe=stdin &ndash;any-address=192.225.158.2 &ndash;pass=stdout | rwcut &ndash;fields sip,sport,dip,dport,packets,flags,protocol</p>
+<h3 id="top-talkers">Top Talkers</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>5 &ndash;proto=0-255 &ndash;pass=stdout | rwstats &ndash;fields=sip &ndash;count=5</p>
+<h3 id="top-talkers-from-external-sources">Top Talkers from External Sources</h3>
+<p>`rwfilter &ndash;type=all &ndash;scidr=10.10.0.0/16 &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>5 &ndash;proto=0-255 &ndash;fail=stdout | rwstats &ndash;fields=sip &ndash;count=5</p>
+<h3 id="top-talkers-from-internal-sources">Top Talkers from Internal Sources</h3>
+<p>`rwfilter &ndash;type=all &ndash;scidr=10.10.0.0/16 &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>5 &ndash;proto=0-255 &ndash;pass=stdout | rwstats &ndash;fields=sip &ndash;count=5</p>
+<h3 id="top-talkers-source-to-destination-port">Top Talkers Source to Destination Port</h3>
+<h3 id="source-ips-to-what-ports">Source IPs to what ports?</h3>
+<p>`rwfilter &ndash;type=all &ndash;scidr=10.10.0.0/16 &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>5 &ndash;proto=0-255 &ndash;pass=stdout | rwstats &ndash;fields=sip,dport &ndash;count=5<br>
+fields create a single bin of data you&rsquo;re looking for.</p>
+<h3 id="top-talkers-source-bytes">Top Talkers Source Bytes</h3>
+<p>`rwfilter &ndash;type=all &ndash;scidr=10.10.0.0/16 &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>5 &ndash;proto=0-255 &ndash;pass=stdout | rwstats &ndash;fields=sip &ndash;bytes &ndash;count=5<br>
+&ndash;values = bytes (bytes, flows, packets)</p>
+<h3 id="sort-protocols-by-bytes">Sort Protocols by bytes</h3>
+<p>`rwfilter &ndash;type=all &ndash;scidr=10.10.0.0/16 &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>5 &ndash;proto=0-255 &ndash;pass=stdout | rwstats &ndash;fields=protocol &ndash;bytes &ndash;count=50</p>
+<h3 id="find-all-protocols-in-the-data">Find All protocols in the data</h3>
+<p>`rwfilter &ndash;type=all &ndash;scidr=10.10.0.0/16 &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a>5 &ndash;proto=0-255 &ndash;pass=stdout | rwuniq &ndash; fields=protocol</p>
+<h3 id="how-many-flows-are-there-between-dates">How many flows are there between dates?</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;proto=0-255 &ndash;print-statistics</p>
+<h3 id="how-many-tcp-flows">How many TCP FLows?</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;proto=6 &ndash;print-statistics</p>
+<h3 id="how-many-ip-protocols">How many IP Protocols</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;proto=0-255 &ndash;pass=stdout | rwuniq &ndash;fields proto</p>
+<h3 id="what-is-the-port-number-that-received-the-most-connection-attempts">What is the Port Number that received the most connection attempts?</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;proto=6 &ndash;flags-initial=S/SA &ndash;pass=stdout | rwstats &ndash;fields dport &ndash;count 10</p>
+<h3 id="which-host-transferred-the-most-bytes-top-talker">Which host transferred the most bytes? Top Talker</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;proto=0-255 &ndash;pass=stdout | rwstats &ndash;fieds=sip &ndash;bytes &ndash;count=10</p>
+<h3 id="how-many-different-ports">How many different ports?</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;proto=0-255 &ndash;saddress=172.16.60.32 &ndash;pass=stdout | rwstats &ndash;fieds=dport &ndash;bytes &ndash;count=20</p>
+<h3 id="what-is-the-timestamp-of-the-largest-single-flow">What is the timestamp of the largest single flow?</h3>
+<p>`rwfilter &ndash;type=all &ndash;start-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;end-date <a href="year-mm-dd:hh:mm:ss">year-mm-dd:hh:mm:ss</a> &ndash;proto=0-255 &ndash;pass=stdout | rwstats &ndash;bytes &ndash;fields=stime,sip &ndash;count=5</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
 			<h1><a href="https://archonblue.com/2022/12/31/tshark.html">tshark</a></h1>
 		
 
@@ -75,11 +272,11 @@
 <h2 id="sample-commands">Sample Commands</h2>
 <h3 id="using-tshark-with-icmp">Using tshark with ICMP</h3>
 <h3 id="using-tshark-to-get-http-information">Using tshark to get HTTP information</h3>
-<p><code>tshark -r wireshark3.pcap -n -q -z http,tree </code>tshark -r wireshark3.pcap -n -q -z http_req,tree</p>
+<p><code>tshark -r &lt;pcap-file&gt; -n -q -z http,tree </code>tshark -r <!-- raw HTML omitted --> -n -q -z http_req,tree</p>
 <h3 id="using-tshark-to-find-and-follow-a-stream">Using tshark to find and follow a stream</h3>
-<p><code>tshark -n -r wireshark3.pcap -Y 'tcp.srcport == 1492 and tcp.dstport == 80' -T fields -e tcp.stream | uniq </code>tshark -n -r wireshark3.pcap -q -z follow,tcp,ascii,78 | more</p>
+<p><code>tshark -n -r &lt;pcap-file&gt; -Y 'tcp.srcport == 5678 and tcp.dstport == 80' -T fields -e tcp.stream | uniq </code>tshark -n -r <!-- raw HTML omitted --> -q -z follow,tcp,ascii,98 | more</p>
 <h3 id="using-tshark-with-dns">Using tshark with DNS</h3>
-<p>`tshark -n -r ./dns.pcap -Y &lsquo;ip.addr == 192.168.11.162 and ip.addr == 192.168.11.101 and udp.port == 53&rsquo; -T fields -e eth.src -e eth.dst -e ip.src -e ip.dst -e dns.id -e dns.qry.name -e dns.a</p>
+<p>`tshark -n -r <!-- raw HTML omitted --> -Y &lsquo;ip.addr == 192.168.11.175 and ip.addr == 192.168.11.26 and udp.port == 53&rsquo; -T fields -e eth.src -e eth.dst -e ip.src -e ip.dst -e dns.id -e dns.qry.name -e dns.a</p>
 <h2 id="bonus">Bonus</h2>
 <p>When you get a base64 encoded payload, you can create a file and use this to decode it.
 `base64 &ndash;decode -i attachment.txt &gt; /tmp/attachment.bin</p>
