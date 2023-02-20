@@ -7,6 +7,14 @@
 	"items": [
 		
 			{
+				"id": "http://archonblue.micro.blog/2023/02/20/great-read-on.html",
+				
+				"content_html": "<p>Great read on storage and backup. Need to look into WORM backup solutions. :)  <a href=\"https://thehackernews.com/2023/02/a-cisos-practical-guide-to-storage-and.html\">thehackernews.com</a></p>\n",
+				"content_text": "Great read on storage and backup. Need to look into WORM backup solutions. :)  [thehackernews.com](https://thehackernews.com/2023/02/a-cisos-practical-guide-to-storage-and.html)\n",
+				"date_published": "2023-02-20T13:36:13-10:00",
+				"url": "https://archonblue.com/2023/02/20/great-read-on.html"
+			},
+			{
 				"id": "http://archonblue.micro.blog/2023/01/16/cyberpatriot-reflection-when.html",
 				
 				"content_html": "<p>CyberPatriot reflection…\nWhen i started 3 years ago we had 5 students. Now we have 4 teams and 3 of them are making the semi-finals this week! #proudCoach</p>\n",
