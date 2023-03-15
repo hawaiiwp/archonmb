@@ -7,6 +7,15 @@
 	"items": [
 		
 			{
+				"id": "http://archonblue.micro.blog/2023/03/14/links-from-sans.html",
+				
+				"content_html": "<p>Links from SANS new2Cyber event. <a href=\"https://start.me/p/onlY8m/sans-new2cyber-2023\">start.me/p/onlY8m/&hellip;</a></p>\n",
+				"content_text": "Links from SANS new2Cyber event. [start.me/p/onlY8m/...](https://start.me/p/onlY8m/sans-new2cyber-2023)\n",
+				"date_published": "2023-03-14T20:10:22-10:00",
+				"url": "https://archonblue.com/2023/03/14/links-from-sans.html",
+				"tags": ["Cybersecurity"]
+			},
+			{
 				"id": "http://archonblue.micro.blog/2023/03/06/api-security-resources.html",
 				
 				"content_html": "<p>API security resources  <a href=\"https://github.com/arainho/awesome-api-security\">github.com</a></p>\n",
@@ -51,7 +60,7 @@
 				"id": "http://archonblue.micro.blog/2023/01/08/thanks-to-sans.html",
 				
 				"content_html": "<p>Thanks to SANS, i am now certified!</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Thanks to SANS, i am now certified! \n\n<img src=\"uploads/2023/691f6b484e.png\" width=\"298\" height=\"298\" alt=\"\">\n",
+				"content_text": "Thanks to SANS, i am now certified! \n\n<img src=\"https://cdn.uploads.micro.blog/94954/2023/691f6b484e.png\" width=\"298\" height=\"298\" alt=\"\">\n",
 				"date_published": "2023-01-08T07:09:00-10:00",
 				"url": "https://archonblue.com/2023/01/08/thanks-to-sans.html"
 			},
