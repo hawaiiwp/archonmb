@@ -7,6 +7,14 @@
 	"items": [
 		
 			{
+				"id": "http://archonblue.micro.blog/2023/03/21/need-malware-here.html",
+				
+				"content_html": "<p>Need malware? Here are samples. <a href=\"https://www.malware-traffic-analysis.net/\">www.malware-traffic-analysis.net</a></p>\n",
+				"content_text": "Need malware? Here are samples. [www.malware-traffic-analysis.net](https://www.malware-traffic-analysis.net/)\n",
+				"date_published": "2023-03-21T20:37:40-10:00",
+				"url": "https://archonblue.com/2023/03/21/need-malware-here.html"
+			},
+			{
 				"id": "http://archonblue.micro.blog/2023/03/14/links-from-sans.html",
 				
 				"content_html": "<p>Links from SANS new2Cyber event. <a href=\"https://start.me/p/onlY8m/sans-new2cyber-2023\">start.me/p/onlY8m/&hellip;</a></p>\n",
@@ -60,7 +68,7 @@
 				"id": "http://archonblue.micro.blog/2023/01/08/thanks-to-sans.html",
 				
 				"content_html": "<p>Thanks to SANS, i am now certified!</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Thanks to SANS, i am now certified! \n\n<img src=\"https://cdn.uploads.micro.blog/94954/2023/691f6b484e.png\" width=\"298\" height=\"298\" alt=\"\">\n",
+				"content_text": "Thanks to SANS, i am now certified! \n\n<img src=\"uploads/2023/691f6b484e.png\" width=\"298\" height=\"298\" alt=\"\">\n",
 				"date_published": "2023-01-08T07:09:00-10:00",
 				"url": "https://archonblue.com/2023/01/08/thanks-to-sans.html"
 			},
