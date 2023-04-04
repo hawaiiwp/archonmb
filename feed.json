@@ -7,6 +7,14 @@
 	"items": [
 		
 			{
+				"id": "http://archonblue.micro.blog/2023/04/03/ever-wondered-what.html",
+				
+				"content_html": "<p>Ever wondered what your kali linux could do?  <a href=\"https://ethicalhackersacademy.com/blogs/ethical-hackers-academy/kali-linux-commands\">ethicalhackersacademy.com</a></p>\n",
+				"content_text": "Ever wondered what your kali linux could do?  [ethicalhackersacademy.com](https://ethicalhackersacademy.com/blogs/ethical-hackers-academy/kali-linux-commands)\n",
+				"date_published": "2023-04-03T20:32:59-10:00",
+				"url": "https://archonblue.com/2023/04/03/ever-wondered-what.html"
+			},
+			{
 				"id": "http://archonblue.micro.blog/2023/03/21/need-malware-here.html",
 				
 				"content_html": "<p>Need malware? Here are samples. <a href=\"https://www.malware-traffic-analysis.net/\">www.malware-traffic-analysis.net</a></p>\n",
