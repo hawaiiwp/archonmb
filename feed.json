@@ -7,6 +7,14 @@
 	"items": [
 		
 			{
+				"id": "http://archonblue.micro.blog/2023/05/14/my-high-school.html",
+				
+				"content_html": "<p>My high school CTF team prevails!</p>\n<!-- raw HTML omitted -->\n",
+				"content_text": "My high school CTF team prevails! \n\n<img src=\"uploads/2023/c581435674.png\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"date_published": "2023-05-14T06:58:03-10:00",
+				"url": "https://archonblue.com/2023/05/14/my-high-school.html"
+			},
+			{
 				"id": "http://archonblue.micro.blog/2023/04/03/ever-wondered-what.html",
 				
 				"content_html": "<p>Ever wondered what your kali linux could do?  <a href=\"https://ethicalhackersacademy.com/blogs/ethical-hackers-academy/kali-linux-commands\">ethicalhackersacademy.com</a></p>\n",
