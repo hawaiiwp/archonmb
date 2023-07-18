@@ -7,6 +7,14 @@
 	"items": [
 		
 			{
+				"id": "http://archonblue.micro.blog/2023/07/17/completed-the-soc.html",
+				
+				"content_html": "<p>Completed the SOC Level 1 Learning Path</p>\n<!-- raw HTML omitted -->\n",
+				"content_text": "Completed the SOC Level 1 Learning Path\n\n<img src=\"uploads/2023/thm-whijass6mg.png\" width=\"600\" height=\"424\" alt=\"\">\n",
+				"date_published": "2023-07-17T23:53:37-10:00",
+				"url": "https://archonblue.com/2023/07/17/completed-the-soc.html"
+			},
+			{
 				"id": "http://archonblue.micro.blog/2023/05/14/my-high-school.html",
 				
 				"content_html": "<p>My high school CTF team prevails!</p>\n<!-- raw HTML omitted -->\n",
@@ -51,7 +59,7 @@
 				"id": "http://archonblue.micro.blog/2023/02/25/tryhackme-is-super.html",
 				
 				"content_html": "<!-- raw HTML omitted -->\n",
-				"content_text": "<img src=\"uploads/2023/b7883589c9.png\" alt=\"THM HA0VZOZ1OI\" title=\"THM-HA0VZOZ1OI.png\" border=\"0\" width=\"599\" height=\"424\" />\nTryHackMe is super fun! \n",
+				"content_text": "<img src=\"https://cdn.uploads.micro.blog/94954/2023/b7883589c9.png\" alt=\"THM HA0VZOZ1OI\" title=\"THM-HA0VZOZ1OI.png\" border=\"0\" width=\"599\" height=\"424\" />\nTryHackMe is super fun! \n",
 				"date_published": "2023-02-25T21:03:37-10:00",
 				"url": "https://archonblue.com/2023/02/25/tryhackme-is-super.html",
 				"tags": ["Cybersecurity"]
@@ -84,7 +92,7 @@
 				"id": "http://archonblue.micro.blog/2023/01/08/thanks-to-sans.html",
 				
 				"content_html": "<p>Thanks to SANS, i am now certified!</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Thanks to SANS, i am now certified! \n\n<img src=\"uploads/2023/691f6b484e.png\" width=\"298\" height=\"298\" alt=\"\">\n",
+				"content_text": "Thanks to SANS, i am now certified! \n\n<img src=\"https://cdn.uploads.micro.blog/94954/2023/691f6b484e.png\" width=\"298\" height=\"298\" alt=\"\">\n",
 				"date_published": "2023-01-08T07:09:00-10:00",
 				"url": "https://archonblue.com/2023/01/08/thanks-to-sans.html"
 			},
