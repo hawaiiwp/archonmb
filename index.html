@@ -6,7 +6,7 @@
 
   <title>
       
-      archonblue == Arlen Nagata, GICH
+      archonblue
       
   </title>
 
@@ -21,6 +21,95 @@
 <div class="h-feed">
 
 	
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://archonblue.com/2023/11/30/osint-if-youre.html" class="u-url"><time class="dt-published" datetime="2023-11-30 11:15:41 -1000">Nov 30, 2023</time></a>
+
+		<div class="e-content">
+			 <!-- raw HTML omitted -->
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+			<h1><a href="https://archonblue.com/2023/07/17/notes-on-burp.html">Notes on Burp Suite</a></h1>
+		
+
+		<a href="https://archonblue.com/2023/07/17/notes-on-burp.html" class="u-url"><time class="dt-published" datetime="2023-07-17 23:55:55 -1000">Jul 17, 2023</time></a>
+
+		<div class="e-content">
+			 <p>Burp Suite is a framework written in Java that aims to provide a one-stop-shop for web application penetration testing. In many ways, this goal is achieved as Burp is very much the industry standard tool for hands-on web app security assessments. Burp Suite is also very commonly used when assessing mobile applications, as the same features which make it so attractive for web app testing translate almost perfectly into testing the APIs (<strong>A</strong>pplication <strong>P</strong>rogramming <strong>I</strong>nterfaces) powering most mobile apps.</p>
+<p>At the simplest level, Burp can capture and manipulate all of the traffic between an attacker and a webserver: this is the core of the framework. After capturing requests, we can choose to send them to various other parts of the Burp Suite framework &ndash; we will be covering some of these tools in upcoming rooms. This ability to intercept, view, and modify web requests prior to them being sent to the target server (or, in some cases, the responses before they are received by our browser), makes Burp Suite perfect for any kind of manual web app testing.</p>
+<ul>
+<li><strong>Proxy:</strong> The most well-known aspect of Burp Suite, the Burp Proxy allows us to intercept and modify requests/responses when interacting with web applications.</li>
+<li><strong>Repeater:</strong> The second most well-known Burp feature &ndash; <a href="https://tryhackme.com/room/burpsuiterepeater">Repeater</a> &ndash; allows us to capture, modify, then resend the same request numerous times. This feature can be absolutely invaluable, especially when we need to craft a payload through trial and error (e.g. in an SQLi &ndash; <strong>S</strong>tructured <strong>Q</strong>uery <strong>L</strong>anguage <strong>I</strong>njection) or when testing the functionality of an endpoint for flaws.</li>
+<li><strong>Intruder:</strong> Although harshly rate-limited in Burp Community, <a href="https://tryhackme.com/room/burpsuiteintruder">Intruder</a> allows us to spray an endpoint with requests. This is often used for bruteforce attacks or to fuzz endpoints.</li>
+<li><strong>Decoder:</strong> Though less-used than the previously mentioned features, <a href="https://tryhackme.com/room/burpsuiteom">Decoder</a> still provides a valuable service when transforming data &ndash; either in terms of decoding captured information, or encoding a payload prior to sending it to the target. Whilst there are other services available to do the same job, doing this directly within Burp Suite can be very efficient.</li>
+<li><strong>Comparer:</strong> As the name suggests, <a href="https://tryhackme.com/room/burpsuiteom">Comparer</a> allows us to compare two pieces of data at either word or byte level. Again, this is not something that is unique to Burp Suite, but being able to send (potentially very large) pieces of data directly into a comparison tool with a single keyboard shortcut can speed things up considerably.</li>
+<li><strong>Sequencer:</strong> We usually use <a href="https://tryhackme.com/room/burpsuiteom">Sequencer</a> when assessing the randomness of tokens such as session cookie values or other supposedly random generated data. If the algorithm is not generating secure random values, then this could open up some devastating avenues for attack.</li>
+</ul>
+<p><a href="https://portswigger.net/">portswigger.net</a>
+<a href="https://portswigger.net/">portswigger.net</a>burp/releases/community/latest
+<a href="https://getfoxyproxy.org/">getfoxyproxy.org</a></p>
+<p>Basic Usage:</p>
+<ol>
+<li>Start Burp Suite</li>
+<li>Go to Proxy</li>
+<li>Turn Interceptor On</li>
+<li>Open Browser</li>
+<li>Go to target website</li>
+</ol>
+<p>Using The Repeater</p>
+<ul>
+<li>After capturing some traffic, send it to the Repeater with CTRL + R</li>
+<li>Change something in the request and send it and see what happens.</li>
+<li>Look at the result in different views (Pretty, Raw, Hex, or Render)</li>
+<li>The Inspector can help you with your changes to the request</li>
+</ul>
+<p>Using Intruder</p>
+<ul>
+<li>After capturing some traffic, send it to the Intruder with CTRL + I</li>
+<li>Edit the Positions you want to change.</li>
+<li>Choose the Attack Type:
+<ul>
+<li>Sniper (most common) use one set of payloads like a username and password.</li>
+<li>Battering Ram- puts the same word in each position like (admin, admin)</li>
+<li>Pitchfork (best to use)- one payload set per position (up to a maximum of 20) and iterates through them all at once.</li>
+<li>Cluster Bomb- uses multiple lists and iterates through all combinations.</li>
+</ul>
+</li>
+<li>Choose the Payloads (list of values or wordlist)</li>
+<li>Choose the Options for the Payloads
+<ul>
+<li>Add prefixes or suffixes with Payload Processing rules</li>
+<li>Use any of the other advanced options there</li>
+</ul>
+</li>
+</ul>
+<h2 id="decoder">Decoder</h2>
+<p>Can be used to decode the output of items found in Burp.</p>
+<h2 id="comparer">Comparer</h2>
+<p>Compares two items to find differences.</p>
+<h2 id="sequencer">Sequencer</h2>
+<p>Sequencer allows us to measure the <em>entropy</em> (or randomness, in other words) of &ldquo;tokens&rdquo; &ndash; strings that are used to identify something and should, in theory, be generated in a cryptographically secure manner.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
+
+		<a href="https://archonblue.com/2023/07/17/completed-the-pentest.html" class="u-url"><time class="dt-published" datetime="2023-07-17 23:53:58 -1000">Jul 17, 2023</time></a>
+
+		<div class="e-content">
+			 <p>Completed the Pentest+ Learning Path</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	  </div>
 	
 	  <div class="h-entry">
 		
